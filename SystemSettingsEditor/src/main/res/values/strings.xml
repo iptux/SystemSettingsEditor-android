@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">System Settings Editor</string>
+	<string name="monitor_service_name">System Settings Monitor</string>
+	<string name="text_about">About</string>
+	<string name="title_author">Author</string>
+	<string name="text_author">Alex.wang</string>
+	<string name="title_version">Version</string>
+	<string name="text_version">1.0</string>
+	<string name="text_sort_order">Sort Order</string>
+	<string name="text_preferences">Preferences</string>
+	<string name="delete">Delete</string>
+	<string name="setting_deleted">Setting Deleted: %s</string>
+
+	<string name="pref_monitor">pref_monitor</string>
+	<string name="pref_monitor_category">Monitor Mode</string>
+	<string name="pref_monitor_title">Enable Monitor</string>
+	<string name="pref_monitor_summary">Monitor the Modification of System Settings</string>
+	<string name="pref_monitor_toast">Show Toast</string>
+	<string name="pref_monitor_toast_summary">Show Toast on Modification of System Settings</string>
+	<string name="pref_monitor_notify">Show Notification</string>
+	<string name="pref_monitor_notify_summary">Show Notification on Modification of System Settings</string>
+	<string name="pref_monitor_notify_priority">Heads-up Notification</string>
+
+	<string name="notify_settings_modified_title">System Settings Modified</string>
+	<string name="notify_settings_modified_summary">%d settings modified</string>
+	<string name="dialog_edit_settings_warning">&lt;b&gt;WARNING&lt;/b&gt;: You are editing system settings, which may break your phone!
+		&lt;br/&gt;&lt;br/&gt;&lt;b&gt;YOU HAVE BEEN WARNED!&lt;/b&gt;</string>
+	<string name="dialog_confirm_title">Delete Confirm</string>
+	<string name="dialog_confirm_message">Are you sure to delete setting item: %s</string>
+	<string name="no_global_settings_message">Global Settings is available on Android 4.2 and above.</string>
+
+	<string-array name="settings_type_array">
+		<item>System Settings</item>
+		<item>Secure Settings</item>
+		<item>Global Settings</item>
+	</string-array>
+</resources>

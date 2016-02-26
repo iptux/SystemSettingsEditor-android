@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	>
+
+	<PreferenceCategory
+		android:title="@string/pref_monitor_category"
+		>
+		<CheckBoxPreference
+			android:key="@string/pref_monitor"
+			android:title="@string/pref_monitor_title"
+			android:summary="@string/pref_monitor_summary"
+			android:defaultValue="true"
+			/>
+		<CheckBoxPreference
+			android:key="pref_toast"
+			android:title="@string/pref_monitor_toast"
+			android:summary="@string/pref_monitor_toast_summary"
+			android:defaultValue="true"
+			android:dependency="@string/pref_monitor"
+			/>
+		<CheckBoxPreference
+			android:key="pref_notify"
+			android:title="@string/pref_monitor_notify"
+			android:summary="@string/pref_monitor_notify_summary"
+			android:defaultValue="true"
+			android:dependency="@string/pref_monitor"
+			/>
+		<CheckBoxPreference
+			android:key="pref_notify_heads_up"
+			android:title="@string/pref_monitor_notify_priority"
+			android:defaultValue="true"
+			android:dependency="pref_notify"
+			/>
+	</PreferenceCategory>
+	<PreferenceCategory
+		android:title="@string/text_about"
+		>
+		<Preference
+			android:title="@string/title_author"
+			android:summary="@string/text_author"
+			/>
+		<Preference
+			android:title="@string/title_version"
+			android:summary="@string/text_version"
+			/>
+	</PreferenceCategory>
+</PreferenceScreen>
