@@ -30,6 +30,7 @@ public class SettingsMonitorService extends Service {
 	SettingsObserver mSettingsObserver;
 	Handler mHandler;
 	ArrayList<SettingItem> mModifiedItems;
+	int mLastModifiedSize = 0;
 
 	@Override
 	public void onCreate() {
@@ -124,6 +125,7 @@ public class SettingsMonitorService extends Service {
 		} else {
 			mNM.cancel(Constants.NOTIFICATION_MODIFIED);
 		}
+		mLastModifiedSize = mModifiedItems.size();
 	}
 
 	Notification getItemNotification(Context context, List<SettingItem> items) {
@@ -156,7 +158,7 @@ public class SettingsMonitorService extends Service {
 				.bigText(text);
 			builder.setStyle(style);
 		}
-		if (Utility.prefHighPriorityNotification(context)) {
+		if (items.size() > mLastModifiedSize && Utility.prefHighPriorityNotification(context)) {
 			builder.setFullScreenIntent(contentIntent, true);
 		}
 		return builder.build();
