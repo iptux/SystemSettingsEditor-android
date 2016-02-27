@@ -1,5 +1,6 @@
 package net.iptux.systemsettingseditor.support;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -84,5 +85,16 @@ public final class Utility {
 	public static
 	void stopMonitor(Context context) {
 		context.stopService(new Intent(context, SettingsMonitorService.class));
+	}
+
+	public static
+	AlertDialog getConfirmDialog(Context context, CharSequence title, CharSequence message, AlertDialog.OnClickListener positiveClickListener) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(context)
+			.setIcon(android.R.drawable.ic_dialog_alert)
+			.setTitle(title)
+			.setMessage(message)
+			.setPositiveButton(android.R.string.yes, positiveClickListener)
+			.setNegativeButton(android.R.string.no, null);
+		return builder.create();
 	}
 }

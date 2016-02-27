@@ -234,16 +234,14 @@ public class SettingsListActivity extends Activity
 	}
 
 	AlertDialog getDeleteConfirmDialog(final Context context, final SettingItem item) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(context)
-			.setIcon(android.R.drawable.ic_dialog_alert)
-			.setTitle(R.string.dialog_confirm_title)
-			.setMessage(Utility.stringFormat(context, R.string.dialog_confirm_message, item.name))
-			.setPositiveButton(android.R.string.yes, new AlertDialog.OnClickListener() {
+		return Utility.getConfirmDialog(context,
+			getString(R.string.dialog_confirm_title),
+			Utility.stringFormat(context, R.string.dialog_confirm_message, item.name),
+			new AlertDialog.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					SettingItemUtility.delete(context, item);
 				}
-			})
-			.setNegativeButton(android.R.string.no, null);
-		return builder.create();
+			}
+		);
 	}
 }
