@@ -139,6 +139,7 @@ public class SettingsMonitorService extends Service {
 			.setContentTitle(title)
 			.setContentText(text)
 			.setContentIntent(contentIntent)
+			.setNumber(items.size())
 			.setDeleteIntent(getClearIntent(context))
 			.addAction(android.R.drawable.ic_menu_delete,
 				context.getString(R.string.delete),
