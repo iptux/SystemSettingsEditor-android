@@ -10,6 +10,8 @@
 	<string name="text_sort_order">Sort Order</string>
 	<string name="text_preferences">Preferences</string>
 	<string name="text_block">Block</string>
+	<string name="add">Add</string>
+	<string name="edit">Edit</string>
 	<string name="delete">Delete</string>
 	<string name="setting_deleted">Setting Deleted: %s</string>
 

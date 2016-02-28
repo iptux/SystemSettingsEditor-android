@@ -42,6 +42,8 @@ public class SettingsListActivity extends Activity
 		implements
 		LoaderManager.LoaderCallbacks<Cursor>,
 		AdapterView.OnItemClickListener,
+		AdapterView.OnItemLongClickListener,
+		ActionMode.Callback,
 		ActionBar.OnNavigationListener {
 
 	private static final String ARG_CONTENT_URI = "uri";
@@ -68,6 +70,8 @@ public class SettingsListActivity extends Activity
 	ListView mListView;
 	SimpleCursorAdapter mAdapter;
 	SpinnerAdapter mSpinnerAdapter;
+	ActionMode mActionMode = null;
+	SettingItem mCurrentItem = null;
 	int mSettingsUriIndex = SYSTEM_SETTINGS_URI_INDEX;
 	int mSortOrder = 0;
 
@@ -86,6 +90,7 @@ public class SettingsListActivity extends Activity
 
 		mListView = (ListView) findViewById(android.R.id.list);
 		mListView.setOnItemClickListener(this);
+		mListView.setOnItemLongClickListener(this);
 
 		String[] fromColumns = {Settings.NameValueTable.NAME, Settings.NameValueTable.VALUE};
 		int[] toViews = {android.R.id.title, android.R.id.text1};
@@ -201,14 +206,70 @@ public class SettingsListActivity extends Activity
 		return true;
 	}
 
+	// ActionMode.Callback.onCreateActionMode
+	public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+		int menuResid = R.menu.settingslist_context_menu;
+		if (mSettingsUriIndex == BLACK_LIST_URI_INDEX) {
+			menuResid = R.menu.blocklist_context_menu;
+		}
+		mode.getMenuInflater().inflate(menuResid, menu);
+		return true;
+	}
+
+	// ActionMode.Callback.onPrepareActionMode
+	public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+		return false;
+	}
+
+	// ActionMode.Callback.onActionItemClicked
+	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.menu_add:
+			break;
+		case R.id.menu_block:
+			getBlockConfirmDialog(this, mCurrentItem).show();
+			break;
+		case R.id.menu_edit:
+			getEditDialog(this, mCurrentItem).show();
+			break;
+		case R.id.menu_delete:
+			getDeleteConfirmDialog(this, mCurrentItem).show();
+			break;
+		default:
+			return false;
+		}
+		mode.finish();
+		return true;
+	}
+
+	// ActionMode.Callback.onDestroyActionMode
+	public void onDestroyActionMode(ActionMode mode) {
+		mListView.setItemChecked(mListView.getCheckedItemPosition(), false);
+		mActionMode = null;
+		mCurrentItem = null;
+	}
+
+	// AdapterView.OnItemLongClickListener.onItemLongClick
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		if (mSettingsUriIndex != SYSTEM_SETTINGS_URI_INDEX
+			&& mSettingsUriIndex != BLACK_LIST_URI_INDEX
+			) {
+			return false;
+		}
+		if (null != mActionMode) {
+			return false;
+		}
+
+		mActionMode = startActionMode(this);
+		mCurrentItem = getItemFromView(view, id);
+		mListView.setItemChecked(position, true);
+		SettingItemUtility.showAsToast(this, mCurrentItem);
+		return true;
+	}
+
 	// AdapterView.OnItemClickListener.onItemClick
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		TextView textView = (TextView) view.findViewById(android.R.id.title);
-		String name = textView.getText().toString();
-		textView = (TextView) view.findViewById(android.R.id.text1);
-		CharSequence value = textView.getText();
-		Uri uri = Uri.withAppendedPath(SETTINGS_URI_ARRAY[mSettingsUriIndex], name);
-		SettingItem item = new SettingItem(uri, id, name, value.toString());
+		SettingItem item = getItemFromView(view, id);
 		if (SYSTEM_SETTINGS_URI_INDEX == mSettingsUriIndex) {
 			AlertDialog dialog = getEditDialog(this, item);
 			dialog.show();
@@ -216,6 +277,15 @@ public class SettingsListActivity extends Activity
 		else {
 			SettingItemUtility.showAsToast(this, item);
 		}
+	}
+
+	SettingItem getItemFromView(View view, long id) {
+		TextView textView = (TextView) view.findViewById(android.R.id.title);
+		String name = textView.getText().toString();
+		textView = (TextView) view.findViewById(android.R.id.text1);
+		CharSequence value = textView.getText();
+		Uri uri = Uri.withAppendedPath(SETTINGS_URI_ARRAY[mSettingsUriIndex], name);
+		return new SettingItem(uri, id, name, value.toString());
 	}
 
 	AlertDialog getEditDialog(final Context context, final SettingItem item) {
