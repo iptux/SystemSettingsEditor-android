@@ -145,6 +145,10 @@ public class SettingsMonitorService extends Service {
 				context.getString(R.string.delete),
 				getDeleteItemIntent(context, last)
 			)
+			.addAction(android.R.drawable.ic_menu_close_clear_cancel,
+				context.getString(R.string.text_block),
+				getBlockItemIntent(context, last)
+			)
 			;
 		if (items.size() > 1) {
 			Notification.InboxStyle style = new Notification.InboxStyle(builder)
@@ -170,6 +174,13 @@ public class SettingsMonitorService extends Service {
 		intent.putExtra(Constants.EXTRA_OPERATION, Constants.OPERATION_DELETE);
 		intent.putExtra(Constants.EXTRA_SETTING_ITEM, item);
 		return PendingIntent.getActivity(context, Constants.OPERATION_DELETE, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+	}
+
+	PendingIntent getBlockItemIntent(Context context, SettingItem item) {
+		Intent intent = new Intent(context, SettingsListActivity.class);
+		intent.putExtra(Constants.EXTRA_OPERATION, Constants.OPERATION_BLOCK);
+		intent.putExtra(Constants.EXTRA_SETTING_ITEM, item);
+		return PendingIntent.getActivity(context, Constants.OPERATION_BLOCK, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 	}
 
 	PendingIntent getClearIntent(Context context) {

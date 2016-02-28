@@ -11,6 +11,7 @@ public final class Constants {
 
 	public static final int OPERATION_CLEARED = 0xc1ea;
 	public static final int OPERATION_DELETE = 0xde1;
+	public static final int OPERATION_BLOCK = 0xb10c;
 	public static final int OPERATION_REPORT = 0xe07;
 
 	public static final int NOTIFICATION_MODIFIED = 0xf1ed;

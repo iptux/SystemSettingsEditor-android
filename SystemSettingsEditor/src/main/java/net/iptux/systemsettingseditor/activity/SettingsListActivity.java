@@ -15,6 +15,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.provider.Settings;
 import android.text.Html;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,6 +32,7 @@ import net.iptux.systemsettingseditor.model.SettingItem;
 import net.iptux.systemsettingseditor.R;
 import net.iptux.systemsettingseditor.provider.BlackListProvider;
 import net.iptux.systemsettingseditor.service.SettingsMonitorService;
+import net.iptux.systemsettingseditor.support.BlackListUtility;
 import net.iptux.systemsettingseditor.support.Constants;
 import net.iptux.systemsettingseditor.support.SettingItemUtility;
 import net.iptux.systemsettingseditor.support.Utility;
@@ -110,10 +112,13 @@ public class SettingsListActivity extends Activity
 			return;
 
 		int operation = intent.getIntExtra(Constants.EXTRA_OPERATION, 0);
+		SettingItem item = intent.getParcelableExtra(Constants.EXTRA_SETTING_ITEM);
 		switch (operation) {
 		case Constants.OPERATION_DELETE:
-			SettingItem item = intent.getParcelableExtra(Constants.EXTRA_SETTING_ITEM);
 			getDeleteConfirmDialog(this, item).show();
+			break;
+		case Constants.OPERATION_BLOCK:
+			getBlockConfirmDialog(this, item).show();
 			break;
 		default:
 			break;
@@ -243,6 +248,19 @@ public class SettingsListActivity extends Activity
 			new AlertDialog.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					SettingItemUtility.delete(context, item);
+				}
+			}
+		);
+	}
+
+	AlertDialog getBlockConfirmDialog(final Context context, final SettingItem item) {
+		return Utility.getConfirmDialog(context,
+			getString(R.string.dialog_block_confirm_title),
+			Utility.stringFormat(context, R.string.dialog_block_confirm_message, item.name),
+			new AlertDialog.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					SettingItemUtility.delete(context, item);
+					BlackListUtility.addToBlackList(context, item, null);
 				}
 			}
 		);

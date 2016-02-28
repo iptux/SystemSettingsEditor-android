@@ -9,6 +9,7 @@
 	<string name="text_version">1.0</string>
 	<string name="text_sort_order">Sort Order</string>
 	<string name="text_preferences">Preferences</string>
+	<string name="text_block">Block</string>
 	<string name="delete">Delete</string>
 	<string name="setting_deleted">Setting Deleted: %s</string>
 
@@ -28,6 +29,8 @@
 		&lt;br/&gt;&lt;br/&gt;&lt;b&gt;YOU HAVE BEEN WARNED!&lt;/b&gt;</string>
 	<string name="dialog_confirm_title">Delete Confirm</string>
 	<string name="dialog_confirm_message">Are you sure to delete setting item: %s</string>
+	<string name="dialog_block_confirm_title">Block Confirm</string>
+	<string name="dialog_block_confirm_message">Are you sure to block this setting: %s\nIt will be removed when detected.</string>
 	<string name="no_global_settings_message">Global Settings is available on Android 4.2 and above.</string>
 
 	<string-array name="settings_type_array">
