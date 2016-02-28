@@ -36,7 +36,7 @@ public class SettingItem implements Parcelable {
 			return null;
 		}
 		Cursor cursor = cr.query(uri, null, null, null, null);
-		if (cursor.getCount() <= 0) {
+		if (null == cursor || cursor.getCount() <= 0) {
 			// deleted item
 			return null;
 		}
