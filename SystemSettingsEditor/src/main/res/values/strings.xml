@@ -34,5 +34,6 @@
 		<item>System Settings</item>
 		<item>Secure Settings</item>
 		<item>Global Settings</item>
+		<item>Black List</item>
 	</string-array>
 </resources>

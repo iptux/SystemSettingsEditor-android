@@ -29,5 +29,11 @@
 			android:name=".service.SettingsMonitorService"
 			android:label="@string/monitor_service_name"
 			/>
+		<provider
+			android:name=".provider.BlackListProvider"
+			android:authorities="net.iptux.systemsettingseditor.provider.BlackListProvider"
+			android:syncable="false"
+			>
+		</provider>
 	</application>
 </manifest>

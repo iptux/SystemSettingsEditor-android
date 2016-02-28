@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import net.iptux.systemsettingseditor.model.SettingItem;
 import net.iptux.systemsettingseditor.R;
+import net.iptux.systemsettingseditor.provider.BlackListProvider;
 import net.iptux.systemsettingseditor.service.SettingsMonitorService;
 import net.iptux.systemsettingseditor.support.Constants;
 import net.iptux.systemsettingseditor.support.SettingItemUtility;
@@ -54,10 +55,12 @@ public class SettingsListActivity extends Activity
 
 	private static final int SYSTEM_SETTINGS_URI_INDEX = 0;
 	private static final int GLOBAL_SETTINGS_URI_INDEX = 2;
+	private static final int BLACK_LIST_URI_INDEX = 3;
 	private static final Uri[] SETTINGS_URI_ARRAY = {
 		Settings.System.CONTENT_URI,
 		Settings.Secure.CONTENT_URI,
 		Settings.Global.CONTENT_URI,
+		BlackListProvider.BlackList.CONTENT_URI,
 	};
 
 	ListView mListView;
