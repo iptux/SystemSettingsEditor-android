@@ -226,7 +226,11 @@ public class SettingsListActivity extends Activity
 			BlackListUtility.getSimpleAddDialog(this, getString(R.string.dialog_add_blacklist_title), getString(R.string.dialog_add_blacklist_message)).show();
 			break;
 		case R.id.menu_block:
-			getBlockConfirmDialog(this, mCurrentItem).show();
+			if (SettingItemUtility.isSystemSettings(mCurrentItem)) {
+				Utility.toastFormat(this, R.string.no_block, mCurrentItem.name);
+			} else {
+				getBlockConfirmDialog(this, mCurrentItem).show();
+			}
 			break;
 		case R.id.menu_edit:
 			if (BLACK_LIST_URI_INDEX == mSettingsUriIndex) {
@@ -325,6 +329,8 @@ public class SettingsListActivity extends Activity
 				public void onClick(DialogInterface dialog, int which) {
 					if (BLACK_LIST_URI_INDEX == mSettingsUriIndex) {
 						BlackListUtility.removeFromBlackList(context, item);
+					} else if (SettingItemUtility.isSystemSettings(item)) {
+						Utility.toastFormat(context, R.string.no_block, item.name);
 					} else {
 						SettingItemUtility.delete(context, item);
 					}

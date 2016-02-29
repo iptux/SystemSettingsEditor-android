@@ -17,8 +17,21 @@ import android.widget.TextView;
 import net.iptux.systemsettingseditor.R;
 import net.iptux.systemsettingseditor.model.SettingItem;
 
+import java.lang.reflect.Field;
+
 
 public final class SettingItemUtility {
+	public static
+	boolean isSystemSettings(SettingItem item) {
+		String name = item.name.toUpperCase();
+		try {
+			Field f = Settings.System.class.getDeclaredField(name);
+			return String.class.equals(f.getType());
+		} catch (NoSuchFieldException e) {
+			return false;
+		}
+	}
+
 	public static
 	String extractSettingName(Uri uri) {
 		return uri.getLastPathSegment();
