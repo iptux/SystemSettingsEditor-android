@@ -1,5 +1,7 @@
 package net.iptux.systemsettingseditor.activity;
 
+import android.app.ActionBar;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.Context;
@@ -11,25 +13,20 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.app.ActionBar;
-import android.app.Activity;
 import android.provider.Settings;
-import android.text.Html;
 import android.view.ActionMode;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import net.iptux.systemsettingseditor.model.SettingItem;
 import net.iptux.systemsettingseditor.R;
+import net.iptux.systemsettingseditor.model.SettingItem;
 import net.iptux.systemsettingseditor.provider.BlackListProvider;
 import net.iptux.systemsettingseditor.service.SettingsMonitorService;
 import net.iptux.systemsettingseditor.support.BlackListUtility;
@@ -226,12 +223,17 @@ public class SettingsListActivity extends Activity
 	public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.menu_add:
+			BlackListUtility.getSimpleAddDialog(this, getString(R.string.dialog_add_blacklist_title), getString(R.string.dialog_add_blacklist_message)).show();
 			break;
 		case R.id.menu_block:
 			getBlockConfirmDialog(this, mCurrentItem).show();
 			break;
 		case R.id.menu_edit:
-			getEditDialog(this, mCurrentItem).show();
+			if (BLACK_LIST_URI_INDEX == mSettingsUriIndex) {
+				getBlackListEditDialog(this, mCurrentItem).show();
+			} else {
+				getEditDialog(this, mCurrentItem).show();
+			}
 			break;
 		case R.id.menu_delete:
 			getDeleteConfirmDialog(this, mCurrentItem).show();
@@ -304,27 +306,12 @@ public class SettingsListActivity extends Activity
 		return new SettingItem(uri, id, name, value.toString());
 	}
 
+	AlertDialog getBlackListEditDialog(final Context context, final SettingItem item) {
+		return SettingItemUtility.getSimpleEditDialog(context, item, item.name, getString(R.string.dialog_edit_blacklist_message));
+	}
+
 	AlertDialog getEditDialog(final Context context, final SettingItem item) {
-		View view = LayoutInflater.from(context).inflate(R.layout.settings_edit_dialog, null);
-		TextView textView = (TextView) view.findViewById(android.R.id.title);
-		textView.setText(Html.fromHtml(context.getString(R.string.dialog_edit_settings_warning)));
-		final EditText editText = (EditText) view.findViewById(android.R.id.text1);
-		editText.setText(item.value);
-		AlertDialog.Builder builder = new AlertDialog.Builder(context)
-			.setTitle(item.name)
-			.setView(view)
-			.setNegativeButton(android.R.string.cancel, null)
-			.setPositiveButton(android.R.string.ok, new AlertDialog.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					SettingItemUtility.update(context, item, editText.getText().toString());
-				}
-			})
-			.setNeutralButton(R.string.delete, new AlertDialog.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					SettingItemUtility.delete(context, item);
-				}
-			});
-		return builder.create();
+		return SettingItemUtility.getSimpleEditDialog(context, item, item.name, getString(R.string.dialog_edit_settings_warning));
 	}
 
 	AlertDialog getDeleteConfirmDialog(final Context context, final SettingItem item) {
@@ -346,7 +333,7 @@ public class SettingsListActivity extends Activity
 			new AlertDialog.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
 					SettingItemUtility.delete(context, item);
-					BlackListUtility.addToBlackList(context, item, null);
+					BlackListUtility.addToBlackList(context, item.name, null);
 				}
 			}
 		);

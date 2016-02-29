@@ -30,9 +30,12 @@
 	<string name="dialog_edit_settings_warning">&lt;b&gt;WARNING&lt;/b&gt;: You are editing system settings, which may break your phone!
 		&lt;br/&gt;&lt;br/&gt;&lt;b&gt;YOU HAVE BEEN WARNED!&lt;/b&gt;</string>
 	<string name="dialog_confirm_title">Delete Confirm</string>
-	<string name="dialog_confirm_message">Are you sure to delete setting item: %s</string>
+	<string name="dialog_confirm_message">Are you sure to delete item: %s</string>
 	<string name="dialog_block_confirm_title">Block Confirm</string>
 	<string name="dialog_block_confirm_message">Are you sure to block this setting: %s\nIt will be removed when detected.</string>
+	<string name="dialog_add_blacklist_title">Add New BlackList Item</string>
+	<string name="dialog_add_blacklist_message">A percent symbol (\"%\") match any sequence of characters.&lt;br/&gt;An underscore (\"_\") matches any single character.</string>
+	<string name="dialog_edit_blacklist_message">Comment for the BlackList item</string>
 	<string name="no_global_settings_message">Global Settings is available on Android 4.2 and above.</string>
 
 	<string-array name="settings_type_array">

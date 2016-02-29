@@ -5,9 +5,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.view.View;
 import android.widget.Toast;
 
 import net.iptux.systemsettingseditor.BuildConfig;
+import net.iptux.systemsettingseditor.R;
 import net.iptux.systemsettingseditor.service.SettingsMonitorService;
 
 public final class Utility {
@@ -95,6 +97,18 @@ public final class Utility {
 			.setMessage(message)
 			.setPositiveButton(android.R.string.yes, positiveClickListener)
 			.setNegativeButton(android.R.string.no, null);
+		return builder.create();
+	}
+
+	public static
+	AlertDialog getSimpleEditTextDialog(final Context context, CharSequence title, View view, AlertDialog.OnClickListener positive, AlertDialog.OnClickListener neutrual) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(context)
+			.setTitle(title)
+			.setView(view)
+			.setPositiveButton(android.R.string.ok, positive)
+			.setNegativeButton(android.R.string.cancel, null);
+		if (null != neutrual)
+			builder.setNeutralButton(R.string.delete, neutrual);
 		return builder.create();
 	}
 }
