@@ -1,6 +1,8 @@
 package net.iptux.systemsettingseditor.support;
 
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -33,6 +35,13 @@ public final class Utility {
 	String stringFormat(Context context, int resId, Object... args) {
 		String format = context.getString(resId);
 		return String.format(format, args);
+	}
+
+	public static
+	void copyToClipBoard(Context context, CharSequence label, CharSequence text) {
+		ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+		ClipData clip = ClipData.newPlainText(label, text);
+		clipboard.setPrimaryClip(clip);
 	}
 
 	public static

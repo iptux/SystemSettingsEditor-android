@@ -295,7 +295,8 @@ public class SettingsListActivity extends Activity
 			getBlackListEditDialog(this, item).show();
 		}
 		else {
-			SettingItemUtility.showAsToast(this, item);
+			SettingItemUtility.copyToClipBoard(this, item);
+			Utility.toastFormat(this, R.string.copy_to_clipboard, item.name);
 		}
 	}
 

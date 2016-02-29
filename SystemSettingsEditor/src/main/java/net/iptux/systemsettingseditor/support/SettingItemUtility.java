@@ -42,6 +42,11 @@ public final class SettingItemUtility {
 	}
 
 	public static
+	void copyToClipBoard(Context context, SettingItem item) {
+		Utility.copyToClipBoard(context, item.name, item.value);
+	}
+
+	public static
 	void showAsToast(Context context, SettingItem item) {
 		Utility.toastFormat(context, "uri=%s, id=%d, name=%s, value=%s", item.uri, item.id, item.name, item.value);
 	}
