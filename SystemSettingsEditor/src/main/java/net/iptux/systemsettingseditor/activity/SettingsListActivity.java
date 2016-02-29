@@ -72,6 +72,7 @@ public class SettingsListActivity extends Activity
 	SpinnerAdapter mSpinnerAdapter;
 	ActionMode mActionMode = null;
 	SettingItem mCurrentItem = null;
+	int mCheckedItemPosition = -1;
 	int mSettingsUriIndex = SYSTEM_SETTINGS_URI_INDEX;
 	int mSortOrder = 0;
 
@@ -244,9 +245,18 @@ public class SettingsListActivity extends Activity
 
 	// ActionMode.Callback.onDestroyActionMode
 	public void onDestroyActionMode(ActionMode mode) {
-		mListView.setItemChecked(mListView.getCheckedItemPosition(), false);
+		setCheckedItemPosition(mCheckedItemPosition, false);
 		mActionMode = null;
 		mCurrentItem = null;
+	}
+
+	void setCheckedItemPosition(int position, boolean checked) {
+		mListView.setItemChecked(mCheckedItemPosition, false);
+		mCheckedItemPosition = -1;
+		if (checked) {
+			mListView.setItemChecked(position, true);
+			mCheckedItemPosition = position;
+		}
 	}
 
 	// AdapterView.OnItemLongClickListener.onItemLongClick
@@ -256,13 +266,13 @@ public class SettingsListActivity extends Activity
 			) {
 			return false;
 		}
+		setCheckedItemPosition(position, true);
 		if (null != mActionMode) {
 			return false;
 		}
 
 		mActionMode = startActionMode(this);
 		mCurrentItem = getItemFromView(view, id);
-		mListView.setItemChecked(position, true);
 		SettingItemUtility.showAsToast(this, mCurrentItem);
 		return true;
 	}
@@ -270,6 +280,12 @@ public class SettingsListActivity extends Activity
 	// AdapterView.OnItemClickListener.onItemClick
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		SettingItem item = getItemFromView(view, id);
+		if (null != mActionMode) {
+			setCheckedItemPosition(position, true);
+			mCurrentItem = item;
+			return;
+		}
+		mListView.setItemChecked(position, false);
 		if (SYSTEM_SETTINGS_URI_INDEX == mSettingsUriIndex) {
 			AlertDialog dialog = getEditDialog(this, item);
 			dialog.show();
