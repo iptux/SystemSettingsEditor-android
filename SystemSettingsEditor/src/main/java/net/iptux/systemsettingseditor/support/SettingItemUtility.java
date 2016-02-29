@@ -76,11 +76,6 @@ public final class SettingItemUtility {
 				public void onClick(DialogInterface dialog, int which) {
 					update(context, item, editText.getText().toString());
 				}
-			},
-			new AlertDialog.OnClickListener() {
-				public void onClick(DialogInterface dialog, int which) {
-					delete(context, item);
-				}
 			});
 	}
 }

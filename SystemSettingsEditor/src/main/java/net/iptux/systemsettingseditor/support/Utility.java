@@ -110,14 +110,12 @@ public final class Utility {
 	}
 
 	public static
-	AlertDialog getSimpleEditTextDialog(final Context context, CharSequence title, View view, AlertDialog.OnClickListener positive, AlertDialog.OnClickListener neutrual) {
+	AlertDialog getSimpleEditTextDialog(final Context context, CharSequence title, View view, AlertDialog.OnClickListener positive) {
 		AlertDialog.Builder builder = new AlertDialog.Builder(context)
 			.setTitle(title)
 			.setView(view)
 			.setPositiveButton(android.R.string.ok, positive)
 			.setNegativeButton(android.R.string.cancel, null);
-		if (null != neutrual)
-			builder.setNeutralButton(R.string.delete, neutrual);
 		return builder.create();
 	}
 }

@@ -65,8 +65,7 @@ public final class BlackListUtility {
 				public void onClick(DialogInterface dialog, int which) {
 					addToBlackList(context, editText.getText().toString(), null);
 				}
-			},
-			null
+			}
 		);
 	}
 }
