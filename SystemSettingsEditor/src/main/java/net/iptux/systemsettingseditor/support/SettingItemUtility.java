@@ -25,22 +25,8 @@ public final class SettingItemUtility {
 	}
 
 	public static
-	boolean isSystemSettings(SettingItem item) {
-		boolean b = Settings.AUTHORITY.equals(item.uri.getAuthority());
-		if (b) {
-			b = "system".equals(item.uri.getPathSegments().get(0));
-		}
-		return b;
-	}
-
-	public static
-	boolean isEditable(SettingItem item) {
-		return isSystemSettings(item);
-	}
-
-	public static
 	boolean update(Context context, SettingItem item, String newValue) {
-		if (TextUtils.isEmpty(newValue) || item.value.equals(newValue) || !isEditable(item)) {
+		if (item.value.equals(newValue)) {
 			return false;
 		}
 		ContentResolver cr = context.getContentResolver();
@@ -51,9 +37,6 @@ public final class SettingItemUtility {
 
 	public static
 	boolean delete(Context context, SettingItem item) {
-		if (!isEditable(item)) {
-			return false;
-		}
 		ContentResolver cr = context.getContentResolver();
 		return cr.delete(item.uri, null, null) > 0;
 	}

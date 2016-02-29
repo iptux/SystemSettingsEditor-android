@@ -291,6 +291,8 @@ public class SettingsListActivity extends Activity
 		if (SYSTEM_SETTINGS_URI_INDEX == mSettingsUriIndex) {
 			AlertDialog dialog = getEditDialog(this, item);
 			dialog.show();
+		} else if (BLACK_LIST_URI_INDEX == mSettingsUriIndex) {
+			getBlackListEditDialog(this, item).show();
 		}
 		else {
 			SettingItemUtility.showAsToast(this, item);
@@ -320,7 +322,11 @@ public class SettingsListActivity extends Activity
 			Utility.stringFormat(context, R.string.dialog_confirm_message, item.name),
 			new AlertDialog.OnClickListener() {
 				public void onClick(DialogInterface dialog, int which) {
-					SettingItemUtility.delete(context, item);
+					if (BLACK_LIST_URI_INDEX == mSettingsUriIndex) {
+						BlackListUtility.removeFromBlackList(context, item);
+					} else {
+						SettingItemUtility.delete(context, item);
+					}
 				}
 			}
 		);
