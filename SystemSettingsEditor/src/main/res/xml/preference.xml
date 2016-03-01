@@ -13,13 +13,6 @@
 			android:defaultValue="true"
 			/>
 		<CheckBoxPreference
-			android:key="pref_toast"
-			android:title="@string/pref_monitor_toast"
-			android:summary="@string/pref_monitor_toast_summary"
-			android:defaultValue="true"
-			android:dependency="@string/pref_monitor"
-			/>
-		<CheckBoxPreference
 			android:key="pref_notify"
 			android:title="@string/pref_monitor_notify"
 			android:summary="@string/pref_monitor_notify_summary"

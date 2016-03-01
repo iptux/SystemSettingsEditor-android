@@ -99,9 +99,6 @@ public class SettingsMonitorService extends Service {
 	}
 
 	void showChangedInfo(SettingItem item) {
-		if (Utility.prefShowToast(this)) {
-			SettingItemUtility.showAsToast(this, item);
-		}
 		if (Utility.prefShowNotification(this)) {
 			addSettingItem(item);
 		}

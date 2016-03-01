@@ -65,11 +65,6 @@ public final class Utility {
 	}
 
 	public static
-	boolean prefShowToast(Context context) {
-		return getBooleanPref(context, Constants.PREF_TOAST, true);
-	}
-
-	public static
 	boolean prefShowNotification(Context context) {
 		return getBooleanPref(context, Constants.PREF_NOTIFY, true);
 	}

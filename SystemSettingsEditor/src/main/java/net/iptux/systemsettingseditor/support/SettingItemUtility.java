@@ -60,11 +60,6 @@ public final class SettingItemUtility {
 	}
 
 	public static
-	void showAsToast(Context context, SettingItem item) {
-		Utility.toastFormat(context, "uri=%s, id=%d, name=%s, value=%s", item.uri, item.id, item.name, item.value);
-	}
-
-	public static
 	AlertDialog getSimpleEditDialog(final Context context, final SettingItem item, CharSequence title, String message) {
 		View view = LayoutInflater.from(context).inflate(R.layout.settings_edit_dialog, null);
 		TextView textView = (TextView) view.findViewById(android.R.id.title);

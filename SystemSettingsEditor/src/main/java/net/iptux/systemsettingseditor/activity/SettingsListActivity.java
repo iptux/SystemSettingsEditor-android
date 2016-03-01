@@ -279,7 +279,6 @@ public class SettingsListActivity extends Activity
 
 		mActionMode = startActionMode(this);
 		mCurrentItem = getItemFromView(view, id);
-		SettingItemUtility.showAsToast(this, mCurrentItem);
 		return true;
 	}
 
