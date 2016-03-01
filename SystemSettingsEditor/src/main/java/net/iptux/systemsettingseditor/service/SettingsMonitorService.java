@@ -83,6 +83,10 @@ public class SettingsMonitorService extends Service {
 		public void onChange(boolean selfChange, Uri uri) {
 			SettingItem item = SettingItem.fromUri(mContentResolver, uri);
 			if (null != item) {
+				// ignore known system settings
+				if (SettingItemUtility.isSystemSettings(item)) {
+					return;
+				}
 				showChangedInfo(item);
 			}
 			else {
