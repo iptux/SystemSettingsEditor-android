@@ -16,6 +16,7 @@ import android.provider.Settings;
 import net.iptux.systemsettingseditor.model.SettingItem;
 import net.iptux.systemsettingseditor.R;
 import net.iptux.systemsettingseditor.activity.SettingsListActivity;
+import net.iptux.systemsettingseditor.support.BlackListUtility;
 import net.iptux.systemsettingseditor.support.Constants;
 import net.iptux.systemsettingseditor.support.SettingItemUtility;
 import net.iptux.systemsettingseditor.support.Utility;
@@ -85,6 +86,10 @@ public class SettingsMonitorService extends Service {
 			if (null != item) {
 				// ignore known system settings
 				if (SettingItemUtility.isSystemSettings(item)) {
+					return;
+				}
+				if (BlackListUtility.isInBlackList(SettingsMonitorService.this, item)) {
+					SettingItemUtility.delete(SettingsMonitorService.this, item);
 					return;
 				}
 				showChangedInfo(item);
