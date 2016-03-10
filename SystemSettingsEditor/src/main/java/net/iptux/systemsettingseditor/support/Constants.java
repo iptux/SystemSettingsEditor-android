@@ -2,6 +2,7 @@ package net.iptux.systemsettingseditor.support;
 
 public final class Constants {
 	public static final String PREF_MONITOR = "pref_monitor";
+	public static final String PREF_MONITOR_ON_BOOT = "pref_monitor_on_boot";
 	public static final String PREF_NOTIFY = "pref_notify";
 	public static final String PREF_NOTIFY_HEADS_UP = "pref_notify_heads_up";
 

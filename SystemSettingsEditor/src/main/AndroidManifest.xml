@@ -5,6 +5,7 @@
 	>
 
 	<uses-permission android:name="android.permission.WRITE_SETTINGS" />
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 	<application
 		android:icon="@android:drawable/ic_menu_manage"
@@ -17,6 +18,7 @@
 			>
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
+
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
@@ -25,15 +27,26 @@
 			android:label="@string/text_preferences"
 			>
 		</activity>
+
 		<service
 			android:name=".service.SettingsMonitorService"
 			android:label="@string/monitor_service_name"
 			/>
+
 		<provider
 			android:name=".provider.BlackListProvider"
 			android:authorities="net.iptux.systemsettingseditor.provider.BlackListProvider"
 			android:syncable="false"
 			>
 		</provider>
+
+		<receiver
+			android:name=".receiver.BootReceiver"
+			>
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
 	</application>
+
 </manifest>

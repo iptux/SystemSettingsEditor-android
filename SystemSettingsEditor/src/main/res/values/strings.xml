@@ -21,6 +21,7 @@
 	<string name="pref_monitor_category">Monitor Mode</string>
 	<string name="pref_monitor_title">Enable Monitor</string>
 	<string name="pref_monitor_summary">Monitor the Modification of System Settings</string>
+	<string name="pref_monitor_boot_title">Start Monitor on boot</string>
 	<string name="pref_monitor_notify">Show Notification</string>
 	<string name="pref_monitor_notify_summary">Show Notification on Modification of System Settings</string>
 	<string name="pref_monitor_notify_priority">Heads-up Notification</string>

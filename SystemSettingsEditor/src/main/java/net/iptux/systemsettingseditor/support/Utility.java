@@ -65,6 +65,11 @@ public final class Utility {
 	}
 
 	public static
+	boolean prefMonitorOnBoot(Context context) {
+		return getBooleanPref(context, Constants.PREF_MONITOR_ON_BOOT, true);
+	}
+
+	public static
 	boolean prefShowNotification(Context context) {
 		return getBooleanPref(context, Constants.PREF_NOTIFY, true);
 	}
